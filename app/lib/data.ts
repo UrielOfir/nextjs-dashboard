@@ -9,12 +9,11 @@ import {
   Revenue,
 } from './definitions';
 import { formatCurrency } from './utils';
-import { unstable_noStore as noStore } from 'next/cache';
 
 export async function fetchRevenue() {
   // Add noStore() here to prevent the response from being cached.
   // This is equivalent to in fetch(..., {cache: 'no-store'}).
-  noStore();
+  
 
   try {
     // Artificially delay a response for demo purposes.
@@ -36,7 +35,7 @@ export async function fetchRevenue() {
 
 export async function fetchLatestInvoices() {
   try {
-    noStore();
+    
 
     await new Promise((resolve) => setTimeout(resolve, 5000));
     const data = await sql<LatestInvoiceRaw>`
@@ -58,7 +57,7 @@ export async function fetchLatestInvoices() {
 }
 
 export async function fetchCardData() {
-  noStore();
+  
 
   try {
     // You can probably combine these into a single SQL query
@@ -99,7 +98,7 @@ export async function fetchFilteredInvoices(
   query: string,
   currentPage: number,
 ) {
-  noStore();
+  
 
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
@@ -134,7 +133,7 @@ export async function fetchFilteredInvoices(
 
 export async function fetchInvoicesPages(query: string) {
   try {
-    noStore();
+    
 
     const count = await sql`SELECT COUNT(*)
     FROM invoices
@@ -157,7 +156,7 @@ export async function fetchInvoicesPages(query: string) {
 
 export async function fetchInvoiceById(id: string) {
   try {
-    noStore();
+    
 
     const data = await sql<InvoiceForm>`
       SELECT
